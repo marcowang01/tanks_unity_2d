@@ -1,0 +1,39 @@
+GameObjects
+- red humanoid with one eye: the player
+- hearts: indicate the lives the player has left
+- tumbling gears: the enemies
+- white dots: the trajectory guideline
+- desert scenery: the background and movement path of enemies
+- score display: a display for the score
+
+Expected behavior:
+- Player is static and cannot move
+- The player can throw bombs that will explode on contact with anything that is not the player or other bombs
+- the white dots will predict the path of travel of bombs you throw
+- the prediction will move dynamically according to the power and angle
+- There is a cool down timer for shooting, player can fire twice every second
+- Enemies (tumbling gears) will start spawning at the right end of the map as soon as the game begins
+- They will damage the player if they collide with the player (sound will play here)
+- The bombs will blow the enemies away
+- As you score points, the enemies will roll faster and spawn more frequently
+- After a certain number of points, the game will enter the final turbo mode
+- During the final stage, enemies will pile up and spawn extremely quickly (you will likely lose here)
+
+Controls:
+- space bar to shoot
+- L/R arrow keys to adjust angle of trajectory
+- Up/down arrow keys to adjust the velocity of your throw
+- 'r' key to restart when game is over
+
+Scoring:
+- you will score a point every time you hit an enemy (gears) with a bomb
+- the spawn frequency and enemy speed will scale according to your score
+- score is displayed on the top right
+- A ding sound will play when you score a point
+
+Win/lose:
+- you have four lives
+- you lose half a heart for each collision the player has with an enemy
+- the game is over once you lose all your lives
+- all enemies should disappear from the screen and you can restart the game with 'r'
+- you will be able to see your final score in the top right
