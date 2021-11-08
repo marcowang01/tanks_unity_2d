@@ -1,0 +1,82 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Player : MonoBehaviour
+{
+
+    /// <summary>
+    /// linear acceleration
+    /// </summary>
+    public float EnginePower = 10;
+
+    /// <summary>
+    /// firing angle
+    /// </summary>
+    public float FireAngle = Mathf.PI / 4;
+
+    /// <summary>
+    /// power of projectile
+    /// </summary>
+    public float FirePower = 10;
+    
+    /// <summary>
+    /// speed of angle/power adjustment
+    /// </summary>
+    public float PowerAdjustmentSpeed = 0.1f;
+    public float AngleAdjustmentSpeed = 0.01f;
+
+    /// <summary>
+    /// constaints for angle and power
+    /// </summary>
+    private Vector2 AngleMinMax = new Vector2(0, Mathf.PI);
+    private Vector2 PowerMinMax = new Vector2(3, 15);
+
+    /// <summary>
+    /// Prefab for bomb
+    /// </summary>
+    public GameObject BombPrefab;
+
+    public Rigidbody2D rb;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyUp("space"))
+        {
+            GameObject bomb = Instantiate(BombPrefab, transform.position + transform.right, Quaternion.identity);
+            Vector2 velocity = new Vector2(FirePower * Mathf.Cos(FireAngle), FirePower * Mathf.Sin(FireAngle));
+            bomb.GetComponent<Rigidbody2D>().velocity = velocity;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        Vector3 force = transform.right * EnginePower * Input.GetAxis("Horizontal");
+        rb.AddForce(force);
+
+        if (Input.GetKey("right") && FireAngle > AngleMinMax.x)
+        {
+            FireAngle -= AngleAdjustmentSpeed;
+        }
+        else if (Input.GetKey("left") && FireAngle < AngleMinMax.y -  AngleAdjustmentSpeed)
+        {
+            FireAngle += AngleAdjustmentSpeed;
+        }
+
+        if (Input.GetKey("up") && FirePower < PowerMinMax.y - PowerAdjustmentSpeed)
+        {
+            FirePower += PowerAdjustmentSpeed;
+        }
+        else if (Input.GetKey("down") && FirePower > PowerMinMax.x + PowerAdjustmentSpeed)
+        {
+            FirePower -= PowerAdjustmentSpeed;
+        }
+    }
+}
